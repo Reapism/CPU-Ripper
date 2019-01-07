@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CPU_Ripper {
+namespace CPU_Ripper.window {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
