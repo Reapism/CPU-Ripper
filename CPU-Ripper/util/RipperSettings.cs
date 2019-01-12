@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 namespace CPU_Ripper.util {
-
+    
     /// <summary>
     /// The <seealso cref="RipperSettings"/> class.
     /// <para>Contains accessor and mutator methods
@@ -52,7 +52,7 @@ namespace CPU_Ripper.util {
         /// The number of iterations for a <seealso cref="System.Collections.Generic.SortedSet{T}"/>
         /// <para>- Includes inserting, deleting, and searching.</para>
         /// </summary>       
-        [DataMember(Name = "iterations_tree")]
+        [DataMember(Name = "iter_tree")]
         public ulong IterationsTree { get; set; }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace CPU_Ripper.util {
         /// <para>- Includes adding, removing, searching, and sorting a
         /// <seealso cref="System.Collections.Generic.Queue{T}"/></para>
         /// </summary>
-        [DataMember(Name = "iterations_queue")]
+        [DataMember(Name = "iter_queue")]
         public ulong IterationsQueue { get; set; }
 
         /// <summary>
@@ -68,19 +68,19 @@ namespace CPU_Ripper.util {
         /// <para>- Includes adding, removing, searching, and sorting a 
         /// <seealso cref="System.Collections.Generic.LinkedList{T}"/>.</para>
         /// </summary>
-        [DataMember(Name = "iterations_linkedlist")]
+        [DataMember(Name = "iter_linkedlist")]
         public ulong IterationsLinkedList { get; set; }
 
         /// <summary>
         /// The number of iterations of boolean logic.
         /// </summary>
-        [DataMember(Name = "iterations_boolean")]
+        [DataMember(Name = "iter_bool")]
         public ulong IterationsBoolean { get; set; }
 
         /// <summary>
         /// The number of iterations of successorship.
         /// </summary>
-        [DataMember(Name = "iterations_successor")]
+        [DataMember(Name = "iter_successor")]
         public ulong IterationsSuccessorship { get; set; }
 
         /// <summary>
