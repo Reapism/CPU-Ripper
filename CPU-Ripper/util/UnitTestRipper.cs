@@ -10,13 +10,14 @@
 
     public class UnitTestRipper {
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+
         public UnitTestRipper() {
 
         }
 
-        public bool RunTests() {
-
-        }
 
     }
 }
