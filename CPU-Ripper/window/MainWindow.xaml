@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPU_Ripper"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="CPU Ripper" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="52*"/>
+            <ColumnDefinition Width="47*"/>
+        </Grid.ColumnDefinitions>
+        <Menu x:Name="menuTop" Height="22" Margin="0" VerticalAlignment="Top" Grid.ColumnSpan="2" MinHeight="22">
+            <MenuItem x:Name="btnFile" Header="File" HorizontalAlignment="Left">
+                <MenuItem Header="Get Threads..."/>
+            </MenuItem>
+            <MenuItem x:Name="btnEdit" Header="Edit" HorizontalAlignment="Left">
+                <MenuItem Header="Iterations..."/>
+                <MenuItem Header="Average..."/>
+            </MenuItem>
+            <MenuItem x:Name="btnSettings" Header="Settings">
+            </MenuItem>
+        </Menu>
+        <GroupBox x:Name="grpOptions" Header="Begin:" HorizontalAlignment="Left" Margin="1,35,0,0" Width="3" MinWidth="380">
+            <Grid>
+                <Button x:Name="btnStart" Content="Start" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="BtnStart_Click"/>
+                <Button x:Name="btnCompare" Content="Compare" HorizontalAlignment="Left" Margin="233,59,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="BtnCompare_Click"/>
+                <Button x:Name="btnSpecs" Content="Specs" HorizontalAlignment="Left" Margin="120,227,0,0" VerticalAlignment="Top" Width="125" Height="125" Click="BtnSpecs_Click"/>
+            </Grid>
+
+        </GroupBox>
+        <GroupBox x:Name="grpDiag" Header="Statistics:" HorizontalAlignment="Right" Margin="0,35,1,0" Width="196" MinWidth="380" Grid.ColumnSpan="2">
+            <RichTextBox x:Name="txtStats" HorizontalAlignment="Left" Margin="2,2,2,0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.CanContentScroll="True">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="Poggers"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </GroupBox>
     </Grid>
 </Window>
