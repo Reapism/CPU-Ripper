@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:CPU_Ripper"
         mc:Ignorable="d"
         Title="CPU Ripper" Height="450" Width="800">
+    <Window.Resources>
+        <Storyboard x:Key="FadeOut">
+            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3"/>
+        </Storyboard>
+    </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="52*"/>
-            <ColumnDefinition Width="47*"/>
-        </Grid.ColumnDefinitions>
         <Menu x:Name="menuTop" Height="22" Margin="0" VerticalAlignment="Top" Grid.ColumnSpan="2" MinHeight="22">
             <MenuItem x:Name="btnFile" Header="File" HorizontalAlignment="Left">
                 <MenuItem Header="Get Threads..."/>
