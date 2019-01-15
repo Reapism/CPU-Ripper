@@ -35,7 +35,8 @@ namespace CPU_Ripper.util {
         /// <para>[Recommended test]</para>
         /// Performs a multithreaded test on the CPU.
         /// </summary>
-        /// <exception cref="RipperThreadException"> ds </exception>
+        /// <exception cref="RipperThreadException"></exception>
+
 
         public void MultiThread() {
             MainWindow w = (MainWindow)Application.Current.MainWindow;
@@ -44,19 +45,21 @@ namespace CPU_Ripper.util {
             //throw new RipperThreadException("void MultiThread() threw an exception!");
         }
 
+        /// <summary>
+        /// <para>[Naive test]</para>
+        /// Performs a single threaded test on the CPU.
+        /// </summary>
+        /// <exception cref="RipperThreadException"></exception>
+
         public void SingleThread() {
             MainWindow w = (MainWindow)Application.Current.MainWindow;
             Action a = new Action(PrintTestIterations);
 
             Dispatcher.CurrentDispatcher.Invoke(a);
 
-            this.rs.IterationsSuccessorship = 100000;
-            this.rs.IterationsBoolean = 100000;
-            this.rs.IterationsQueue = 100000;
-            this.rs.IterationsLinkedList = 100000;
-            this.rs.IterationsTree = 100000;
-
             TimeSpan dur = new TimeSpan();
+            TimeSpan totalDur = new TimeSpan();
+            var totalTime = Stopwatch.StartNew();
 
             RunSuccessorship(out dur);
             Dispatcher.CurrentDispatcher.Invoke(() =>
@@ -67,19 +70,36 @@ namespace CPU_Ripper.util {
             RunQueue(out dur);
             Dispatcher.CurrentDispatcher.Invoke(() =>
                 w.txtStats.AppendText($"\nQueue: {dur.ToString()}"));
-
             RunLinkedList(out dur);
             Dispatcher.CurrentDispatcher.Invoke(() =>
                 w.txtStats.AppendText($"\nLinkedList: {dur.ToString()}"));
             RunTree(out dur);
             Dispatcher.CurrentDispatcher.Invoke(() =>
                 w.txtStats.AppendText($"\nTree (SortedSet): {dur.ToString()}"));
+
+            totalTime.Stop();
+            totalDur = totalTime.Elapsed;
+            Dispatcher.CurrentDispatcher.Invoke(() =>
+            w.txtStats.AppendText($"\nTotal Time: {totalDur.ToString()}"));
         }
 
-        
+        /// <summary>
+        /// Prints the specs of the current machine and the number
+        /// of iterations for each test performed.
+        /// <para>Attempts to get <see cref="MainWindow"/>.</para>
+        /// </summary>
 
-        private void PrintTestIterations() {
-            MainWindow w = (MainWindow)Application.Current.MainWindow;
+        public void PrintTestIterations() {
+            MainWindow w;
+
+            try {
+                w = (MainWindow)Application.Current.MainWindow;
+            } catch (InvalidOperationException e) {
+                MessageBox.Show($"Exception found: Tried to get the main window!\n" +
+                    $"{e.ToString()}", e.Message);
+                return;
+            }
+
             w.txtStats.AppendText(new Specs().ToString());
             w.txtStats.AppendText($"\nSuccessorship Iterations: {this.rs.IterationsSuccessorship}");
             w.txtStats.AppendText($"\nBoolean Iterations: {this.rs.IterationsBoolean}");
@@ -241,7 +261,7 @@ namespace CPU_Ripper.util {
             var sw = Stopwatch.StartNew();
             int choice;
 
-            for (ulong i = 0; i < this.rs.IterationsQueue; i++) {
+            for (ulong i = 0; i < this.rs.IterationsTree; i++) {
                 choice = rnd.Next(0, 3);
 
                 switch (choice) {
@@ -251,6 +271,7 @@ namespace CPU_Ripper.util {
                         string rndStr = rnd.Next().ToString();
                         set1.Add(rnd.Next().ToString());
                         set2.Add(rnd.Next().ToString());
+
                         break;
                     }
                     // remove
@@ -263,7 +284,9 @@ namespace CPU_Ripper.util {
                     }
                     // search
                     case 2: {
-
+                        string rndStr = rnd.Next().ToString();
+                        bool b1 = set1.Contains(rndStr);
+                        bool b2 = set2.Contains(rndStr);
 
                         break;
                     }
