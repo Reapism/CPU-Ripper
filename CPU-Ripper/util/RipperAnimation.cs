@@ -7,7 +7,7 @@ namespace CPU_Ripper.util {
 
     /// <summary>
     /// The <see cref="RipperAnimation"/> class.
-    /// <para>Fades </para>
+    /// <para>Fades a button object.</para>
     /// <para>Author: Reapism / Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
