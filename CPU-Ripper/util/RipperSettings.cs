@@ -4,12 +4,13 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 
 namespace CPU_Ripper.util {
-    
+
     /// <summary>
     /// The <seealso cref="RipperSettings"/> class.
     /// <para>Contains accessor and mutator methods
     /// which control the <seealso cref="Ripper"/> settings.</para>
     /// Using <seealso cref="DataContractJsonSerializer"/> for serialization.
+    /// <para>Author: Reapism / Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
     [DataContract]
