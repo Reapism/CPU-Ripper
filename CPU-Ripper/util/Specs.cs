@@ -1,11 +1,21 @@
 ﻿using System;
 
 namespace CPU_Ripper.util {
+
+    /// <summary>
+    /// The <see cref="Specs"/> class.
+    ///<para>Contains information about the current
+    ///computer specs.</para> 
+    ///<para>Author: Reapism / Anthony Jaghab (c), all rights reserved.</para>
+    /// </summary>
+
     public class Specs {
 
-        public Specs() {
-
-        }
+        /// <summary>
+        /// Returns a string containing information about the
+        /// current users machine.
+        /// </summary>
+        /// <returns></returns>
 
         public override string ToString() =>
           $"Machine Name: {Environment.MachineName}\n" +
