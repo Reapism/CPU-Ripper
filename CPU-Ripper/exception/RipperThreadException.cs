@@ -6,6 +6,7 @@ namespace CPU_Ripper.exception {
     /// The <see cref="RipperThreadException"/> class.
     /// <para>Represents a <see cref="RipperThreadException"/> with a custom
     /// messsage.</para>
+    /// <para>Author: Reapism / Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
     public class RipperThreadException : Exception {

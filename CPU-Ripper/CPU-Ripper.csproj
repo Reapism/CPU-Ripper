@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="exception\RipperThreadException.cs" />
     <Compile Include="util\Ripper.cs" />
+    <Compile Include="util\RipperAnimation.cs" />
     <Compile Include="util\RipperSettings.cs" />
     <Compile Include="util\Specs.cs" />
     <Compile Include="util\UnitTestRipper.cs" />
