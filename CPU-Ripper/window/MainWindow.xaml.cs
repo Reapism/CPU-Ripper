@@ -1,11 +1,5 @@
 ﻿using CPU_Ripper.util;
-using System;
-using System.Diagnostics;
-using System.Threading;
 using System.Windows;
-using System.Runtime.Serialization;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 
 namespace CPU_Ripper.window {
 
@@ -58,6 +52,7 @@ namespace CPU_Ripper.window {
             this.rs.IterationsQueue = Properties.Settings.Default.iter_queue;
             this.rs.IterationsLinkedList = Properties.Settings.Default.iter_linkedlist;
             this.rs.IterationsTree = Properties.Settings.Default.iter_tree;
+            this.rs.AverageIterations = Properties.Settings.Default.iter_avg;
 
             this.rs.AutoCheckForUpdates = Properties.Settings.Default.auto_updates;
             this.rs.FluidLoading = Properties.Settings.Default.fluid_loading;
@@ -66,24 +61,20 @@ namespace CPU_Ripper.window {
         
 
         private void BtnStart_Click(object sender, RoutedEventArgs e) {
-            //// Create a timer and add its corresponding event
-            //System.Timers.Timer timer = new System.Timers.Timer();
-            //timer.Elapsed += TimerFade_Elapsed;
 
-            //timer.Interval = 5;
-
-            //// Want a new thread to run this task on so
-            //// the main thread doesn't wait.
-
-            //Task task = new Task(() => timer.Start());
-            //task.Start();          
-            //r.SingleThread();
-
-            //new RipperAnimation(ref this.btnStart).FadeOut(RipperAnimation.RipperTimer.FAST);
+            this.btnStart.ContextMenu.IsOpen = true;
             
-            Storyboard sb = this.FindResource("FadeAnim") as Storyboard;
-            Storyboard.SetTarget(sb, this.btnStart);
-            sb.Begin();
+
+            //if (btnStart.Opacity == 0) {
+            //    Storyboard sb = this.FindResource("FadeIn") as Storyboard;
+            //    Storyboard.SetTarget(sb, this.btnStart);
+            //    sb.Begin();
+            //} else {
+            //    Storyboard sb = this.FindResource("FadeOut") as Storyboard;
+            //    Storyboard.SetTarget(sb, this.btnStart);
+            //    sb.Begin();
+            //}
+
             
         }
 
@@ -112,6 +103,14 @@ namespace CPU_Ripper.window {
         }
 
         #endregion
+
+        private void BtnSingle_Click(object sender, RoutedEventArgs e) {
+            r.SingleThread();
+        }
+
+        private void BtnMulti_Click(object sender, RoutedEventArgs e) {
+            r.MultiThread();
+        }
     }
 
     #endregion
