@@ -25,7 +25,7 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_successor {
             get {
                 return ((ulong)(this["iter_successor"]));
@@ -37,7 +37,7 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_bool {
             get {
                 return ((ulong)(this["iter_bool"]));
@@ -49,7 +49,7 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_queue {
             get {
                 return ((ulong)(this["iter_queue"]));
@@ -61,7 +61,7 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_linkedlist {
             get {
                 return ((ulong)(this["iter_linkedlist"]));
@@ -73,7 +73,7 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public ulong iter_tree {
             get {
                 return ((ulong)(this["iter_tree"]));
@@ -104,6 +104,18 @@ namespace CPU_Ripper.Properties {
             }
             set {
                 this["fluid_loading"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public byte iter_avg {
+            get {
+                return ((byte)(this["iter_avg"]));
+            }
+            set {
+                this["iter_avg"] = value;
             }
         }
     }
