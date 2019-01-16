@@ -50,6 +50,12 @@ namespace CPU_Ripper.util {
             Competent }
 
         /// <summary>
+        /// Gets the number of iterations per test to average.
+        /// </summary>
+
+        public byte AverageIterations { get; set; }
+
+        /// <summary>
         /// The number of iterations for a <seealso cref="System.Collections.Generic.SortedSet{T}"/>
         /// <para>- Includes inserting, deleting, and searching.</para>
         /// </summary>       
