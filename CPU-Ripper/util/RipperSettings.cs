@@ -22,7 +22,7 @@ namespace CPU_Ripper.util {
         /// 
         /// The higher, the better.
         /// </summary>
-        
+
         public enum IterationsAverageTests {
 
             /// <summary>
@@ -47,13 +47,20 @@ namespace CPU_Ripper.util {
             /// function.</para>
             /// </summary>
 
-            Competent }
+            Competent
+        }
 
         /// <summary>
         /// Gets the number of iterations per test to average.
         /// </summary>
-
+        [DataMember(Name = "iter_avg")]
         public byte AverageIterations { get; set; }
+
+        /// <summary>
+        /// The number of tests to run.
+        /// </summary>
+        [DataMember(Name = "num_tests")]
+        public byte NumberOfTests { get; set; }
 
         /// <summary>
         /// The number of iterations for a <seealso cref="System.Collections.Generic.SortedSet{T}"/>
