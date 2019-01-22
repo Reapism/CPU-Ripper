@@ -1,9 +1,9 @@
 ﻿using CPU_Ripper.exception;
 using CPU_Ripper.window;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Threading;
 
 namespace CPU_Ripper.util {
@@ -52,56 +52,50 @@ namespace CPU_Ripper.util {
         /// <exception cref="RipperThreadException"></exception>
 
         public void SingleThread() {
-            MainWindow w = (MainWindow)Application.Current.MainWindow;
-            Action a = new Action(PrintTestIterations);
+            
+            TimeSpan[,] durations = new TimeSpan[this.rs.AverageIterations, this.rs.NumberOfTests];
+            Stopwatch[,] times = new Stopwatch[this.rs.AverageIterations, this.rs.NumberOfTests];
 
-            Dispatcher.CurrentDispatcher.Invoke(a);
-
-            List<Stopwatch> times = new List<Stopwatch>();
-            List<TimeSpan> durations = new List<TimeSpan>();
+            Action allTests = GetTests();
+            MessageBox.Show(allTests.Method.ToString());
 
             for (byte i = 0; i < this.rs.AverageIterations; i++) {
-                times.Add(new Stopwatch());
-                durations.Add(new TimeSpan());
+                for (byte j = 0; j < this.rs.NumberOfTests; j++) {
+                    durations[i, j] = new TimeSpan();
+                    times[i, j] = new Stopwatch();
+
+                    allTests.Invoke();
+                }
             }
 
             for (byte i = 0; i < this.rs.AverageIterations; i++) {
+                int testIndex = this.rs.NumberOfTests - 1;
 
-                times[i] = Stopwatch.StartNew();
-
-                RunSuccessorship();
-                RunBoolean();
-                RunQueue(); 
-                RunLinkedList();
-                RunTree();       
+                
+                // best way to do this is with a delegate.
+                // need to figure out passing with out parameter
+                // in delegate.
             }
+
+
         }
 
         /// <summary>
-        /// Prints the specs of the current machine and the number
-        /// of iterations for each test performed.
-        /// <para>Attempts to get <see cref="MainWindow"/>.</para>
+        /// Gets all the test methods and returns an action that holds
+        /// all them.
         /// </summary>
+        /// <returns>An action containing all the methods to run.</returns>
 
-        public void PrintTestIterations() {
-            MainWindow w;
+        private Action GetTests() {
+            Action a = new Action(RunSuccessorship);
 
-            try {
-                w = (MainWindow)Application.Current.MainWindow;
-            } catch (InvalidOperationException e) {
-                MessageBox.Show($"Exception found: Tried to get the main window!\n" +
-                    $"{e.ToString()}", e.Message);
-                return;
-            }
-            
-            w.txtStats.AppendText(new Specs().ToString());
-            w.txtStats.AppendText($"\nSuccessorship Iterations: {this.rs.IterationsSuccessorship}");
-            w.txtStats.AppendText($"\nBoolean Iterations: {this.rs.IterationsBoolean}");
-            w.txtStats.AppendText($"\nQueue Iterations: {this.rs.IterationsQueue}");
-            w.txtStats.AppendText($"\nLinked List Iterations: {this.rs.IterationsLinkedList}");
-            w.txtStats.AppendText($"\nTree Iterations: {this.rs.IterationsTree}");
+            a += RunBoolean;
+            a += RunQueue;
+            a += RunLinkedList;
+            a += RunTree;
+
+            return a;
         }
-
 
     }
 
