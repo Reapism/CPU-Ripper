@@ -1,4 +1,5 @@
 ﻿using CPU_Ripper.util;
+using System;
 using System.Windows;
 
 namespace CPU_Ripper.window {
@@ -35,9 +36,9 @@ namespace CPU_Ripper.window {
         public MainWindow() {
             InitializeComponent();
 
-            rs = new RipperSettings();
-            r = new Ripper(ref rs);
-      
+            this.rs = new RipperSettings();
+            this.r = new Ripper(ref this.rs);
+
             InitializeSettings();
         }
 
@@ -58,40 +59,8 @@ namespace CPU_Ripper.window {
             this.rs.FluidLoading = Properties.Settings.Default.fluid_loading;
         }
 
-        
-
         private void BtnStart_Click(object sender, RoutedEventArgs e) {
-
             this.btnStart.ContextMenu.IsOpen = true;
-            
-
-            //if (btnStart.Opacity == 0) {
-            //    Storyboard sb = this.FindResource("FadeIn") as Storyboard;
-            //    Storyboard.SetTarget(sb, this.btnStart);
-            //    sb.Begin();
-            //} else {
-            //    Storyboard sb = this.FindResource("FadeOut") as Storyboard;
-            //    Storyboard.SetTarget(sb, this.btnStart);
-            //    sb.Begin();
-            //}
-
-            
-        }
-
-        private void TimerFade_Elapsed(object sender, System.Timers.ElapsedEventArgs e) {
-            // Access UI thread to decrease Opacity on a button from a different thread.
-
-            Dispatcher.Invoke(() => {
-                if (btnStart.Opacity > 0.0) {
-                    btnStart.Opacity -= 0.01;
-                    // code here to force update the GUI.
-                } else {
-                    System.Timers.Timer t;
-                    t = (System.Timers.Timer)sender;
-                    t.Stop();
-                }
-            });          
-                
         }
 
         private void BtnSpecs_Click(object sender, RoutedEventArgs e) {
@@ -102,15 +71,45 @@ namespace CPU_Ripper.window {
 
         }
 
-        #endregion
-
         private void BtnSingle_Click(object sender, RoutedEventArgs e) {
-            r.SingleThread();
+            this.txtStats.Document.Blocks.Clear();
+            PrintTestIterations();
+            this.r.SingleThread();
         }
 
         private void BtnMulti_Click(object sender, RoutedEventArgs e) {
-            r.MultiThread();
+            this.txtStats.Document.Blocks.Clear();
+            PrintTestIterations();
+            this.r.MultiThread();
         }
+
+        /// <summary>
+        /// Prints the specs of the current machine and the number
+        /// of iterations for each test performed.
+        /// <para>Attempts to get <see cref="MainWindow"/>.</para>
+        /// </summary>
+
+        public void PrintTestIterations() {
+            MainWindow w;
+
+            try {
+                w = (MainWindow)Application.Current.MainWindow;
+            } catch (InvalidOperationException e) {
+                MessageBox.Show($"Exception found: Tried to get the main window!\n" +
+                    $"{e.ToString()}", e.Message);
+                return;
+            }
+
+            w.txtStats.AppendText($"Specs\n\n{new Specs().ToString()}");
+            w.txtStats.AppendText("\n\n\nIterations\n");
+            w.txtStats.AppendText($"\nSuccessorship: {this.rs.IterationsSuccessorship.ToString("n0")}");
+            w.txtStats.AppendText($"\nBoolean: {this.rs.IterationsBoolean.ToString("n0")}");
+            w.txtStats.AppendText($"\nQueue: {this.rs.IterationsQueue.ToString("n0")}");
+            w.txtStats.AppendText($"\nLinked List: {this.rs.IterationsLinkedList.ToString("n0")}");
+            w.txtStats.AppendText($"\nTree: {this.rs.IterationsTree.ToString("n0")}");
+        }
+
+        #endregion
     }
 
     #endregion
