@@ -23,10 +23,10 @@ namespace CPU_Ripper.util {
             $"Network: {Environment.UserDomainName}\n" +
             $"System path: {Environment.SystemDirectory}\n" +
             $"CLR version: {Environment.Version}\n" +
-            $"Ticks: {Environment.TickCount}\n" +
-            $"Platform: {Environment.OSVersion.Platform}\n" +
+            $"Ticks: {Environment.TickCount.ToString("n0")}\n" +
+            $"Platform: {Environment.OSVersion.Platform.ToString()}\n" +
             $"Service Pack: {Environment.OSVersion.ServicePack}\n" +
-            $"OS Version: {Environment.OSVersion.Version}\n" +
+            $"OS Version: {Environment.OSVersion.Version.ToString()}\n" +
             $"Threads: {Environment.ProcessorCount}\n";
 
 
