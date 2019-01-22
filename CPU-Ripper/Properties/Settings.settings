@@ -24,6 +24,9 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="iter_avg" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="num_tests" Type="System.String" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
   </Settings>

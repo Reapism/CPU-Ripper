@@ -109,13 +109,25 @@ namespace CPU_Ripper.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
         public byte iter_avg {
             get {
                 return ((byte)(this["iter_avg"]));
             }
             set {
                 this["iter_avg"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public string num_tests {
+            get {
+                return ((string)(this["num_tests"]));
+            }
+            set {
+                this["num_tests"] = value;
             }
         }
     }
