@@ -110,6 +110,10 @@ namespace CPU_Ripper.window {
         }
 
         #endregion
+
+        private void BtnSettings_Click(object sender, RoutedEventArgs e) {
+            new SettingsWindow(rs).Show();
+        }
     }
 
     #endregion

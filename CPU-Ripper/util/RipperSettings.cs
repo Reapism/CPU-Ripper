@@ -19,7 +19,6 @@ namespace CPU_Ripper.util {
         /// <summary>
         /// Represents how many tests given (n) iterations to
         /// be used to average the results.
-        /// 
         /// The higher, the better.
         /// </summary>
 
@@ -112,6 +111,12 @@ namespace CPU_Ripper.util {
         [DataMember(Name = "fluid_loading")]
         public bool FluidLoading { get; set; }
 
+        /// <summary>
+        /// Glues the settings window to the main window.
+        /// </summary>
+        public bool Glue { get; set; }
+
+        
         /// <summary> Serializes a <seealso cref="RipperSettings"/> class into a JSON.
         /// <para>Internally catches possible exceptions, and if found, returns false.</para>
         /// </summary>

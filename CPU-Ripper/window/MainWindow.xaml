@@ -21,7 +21,7 @@
                 <MenuItem Header="Iterations..."/>
                 <MenuItem Header="Average..."/>
             </MenuItem>
-            <MenuItem x:Name="btnSettings" Header="Settings">
+            <MenuItem x:Name="btnSettings" Header="Settings" Click="BtnSettings_Click">
             </MenuItem>
         </Menu>
         <GroupBox x:Name="grpOptions" Header="Begin:" HorizontalAlignment="Left" Margin="1,35,0,0" Width="3" MinWidth="380">
