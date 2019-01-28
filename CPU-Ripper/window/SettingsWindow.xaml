@@ -1,19 +1,36 @@
-﻿<Window x:Class="CPU_Ripper.window.SettingsWindow"
+﻿<Window x:Name="windowSettings" x:Class="CPU_Ripper.window.SettingsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPU_Ripper.window"
         mc:Ignorable="d"
-        Title="Settings" Height="450" Width="800" WindowStyle="None">
-    <Grid x:Name="winSettings">
-        <ListView x:Name="listView" Margin="5">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        Title="Settings" Height="500" Width="800" MinHeight="500" MinWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="grdLeft" Margin="0">
+            <GroupBox x:Name="grpProp" Header="Test:" Margin="5,10,5,5">
+                <StackPanel x:Name="stkTests" Margin="0" VerticalAlignment="Top" Height="150">
+                    <TextBox x:Name="txtSuccIter" Height="23" TextWrapping="Wrap" Text="  Successorship:" Margin="2,5,2,0" SelectionOpacity="0.1" ToolTip="Number of iterations for successorship." GotFocus="TxtSuccIter_GotFocus" LostFocus="TxtSuccIter_LostFocus" KeyDown="TxtSuccIter_KeyDown"/>
+                    <TextBox x:Name="txtBoolIter" Height="23" TextWrapping="Wrap" Text="  Boolean:" Margin="2,5,2,0" ToolTip="Number of iterations for boolean logic." SelectionOpacity="0.2" GotFocus="TxtBoolIter_GotFocus" LostFocus="TxtBoolIter_LostFocus" KeyDown="TxtBoolIter_KeyDown"/>
+                    <TextBox x:Name="txtQueueIter" Height="23" TextWrapping="Wrap" Text="  Queue:" ToolTip="Number of iterations for adding, removing, and searching the Queue data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtQueueIter_GotFocus" LostFocus="TxtQueueIter_LostFocus" KeyDown="TxtQueueIter_KeyDown"/>
+                    <TextBox x:Name="txtLinkedIter" Height="23" TextWrapping="Wrap" Text="  Linked list:" ToolTip="Number of iterations for adding, removing, and searching the LinkedList data structure." Margin="2,5,2,0" SelectionOpacity="0.2" GotFocus="TxtLinkedIter_GotFocus" LostFocus="TxtLinkedIter_LostFocus" KeyDown="TxtLinkedIter_KeyDown"/>
+                    <TextBox x:Name="txtTreeIter" Height="23" TextWrapping="Wrap" Text="  Tree:" ToolTip="Number of iterations for adding, removing, and searching the Tree data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtTreeIter_GotFocus" LostFocus="TxtTreeIter_LostFocus" KeyDown="TxtTreeIter_KeyDown"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid x:Name="grdRight" Grid.Column="1" Margin="0">
+            <GroupBox x:Name="grpApp" Header="Application:" Margin="5,0,5,5">
+                <StackPanel x:Name="stkApp" Margin="0" VerticalAlignment="Top" Height="150">
+                    <CheckBox x:Name="chkFluidLoad" Content="Fluid load" Margin="0,5,0,0" ToolTip="Fluid load preloads all application windows for nice visual effects." Checked="ChkFluidLoad_Checked"/>
+                    <CheckBox x:Name="chkAutoUpdates" Content="Auto updates" Margin="0,5,0,0" ToolTip="Automatically checks for updates on application load." Checked="ChkAutoUpdates_Checked"/>
+                    <CheckBox x:Name="chkGlue" Content="Glue" Margin="0,5,0,0" ToolTip="Glues the settings window to be side-by-side with the main window." Checked="ChkGlue_Checked"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
 
     </Grid>
 </Window>
