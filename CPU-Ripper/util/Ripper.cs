@@ -2,8 +2,8 @@
 using CPU_Ripper.window;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Threading;
 
 namespace CPU_Ripper.util {
@@ -32,52 +32,81 @@ namespace CPU_Ripper.util {
         }
 
         /// <summary>
-        /// <para>[Recommended test]</para>
-        /// Performs a multithreaded test on the CPU.
+        /// Runs <see cref="Ripper.SingleThread"/> but on a different
+        /// thread.<para>Useful when there is a large number of
+        /// iterations per test which could take a long time for the <see cref="Ripper"/>
+        /// to complete.</para>
         /// </summary>
+        /// <exception cref="ObjectDisposedException">Exception generated from <see cref="Task.Start()"/></exception>
+        /// <exception cref="InvalidOperationException">Exception generated from <see cref="Task.Start()"/></exception>
+
+        public RipperTestResults ThreadedSingle() {
+            return null;
+        }
+
+        /// <summary>
+        /// Performs a multithreaded test on the CPU.
+        /// <para>Returns a <see cref="RipperTestResults"/> that contains
+        /// the results of the tests.</para>
+        /// </summary>
+        /// <returns>A <see cref="RipperTestResults"/> containing the results.</returns>
         /// <exception cref="RipperThreadException"></exception>
 
-
-        public void MultiThread() {
+        public RipperTestResults MultiThread() {
             MainWindow w = (MainWindow)Application.Current.MainWindow;
             Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText(new Specs().ToString()));
 
             //throw new RipperThreadException("void MultiThread() threw an exception!");
+
+            return null;
         }
 
         /// <summary>
         /// <para>[Naive test]</para>
         /// Performs a single threaded test on the CPU.
         /// </summary>
-        /// <exception cref="RipperThreadException"></exception>
 
-        public void SingleThread() {
-            
-            TimeSpan[,] durations = new TimeSpan[this.rs.AverageIterations, this.rs.NumberOfTests];
-            Stopwatch[,] times = new Stopwatch[this.rs.AverageIterations, this.rs.NumberOfTests];
+        public RipperTestResults SingleThread() {
+            var results = new RipperTestResults();
 
             Action allTests = GetTests();
             MessageBox.Show(allTests.Method.ToString());
 
-            for (byte i = 0; i < this.rs.AverageIterations; i++) {
-                for (byte j = 0; j < this.rs.NumberOfTests; j++) {
-                    durations[i, j] = new TimeSpan();
-                    times[i, j] = new Stopwatch();
+            // Initalize all the objects.
 
-                    allTests.Invoke();
+            
+
+                for (int j = 0; j< this.rs.AverageIterations; j++) {
+                    TimeSpan avgSucc = new TimeSpan();
+                    avgSucc = avgSucc.Add(RunSuccessorship());
                 }
-            }
 
-            for (byte i = 0; i < this.rs.AverageIterations; i++) {
-                int testIndex = this.rs.NumberOfTests - 1;
+                for (int j = 0; j < this.rs.AverageIterations; j++) {
+                    TimeSpan avgBool = new TimeSpan();
+                    avgBool = avgBool.Add(RunBoolean());
+                }
 
-                
+                for (int j = 0; j < this.rs.AverageIterations; j++) {
+                    TimeSpan avgQ = new TimeSpan();
+                    avgQ = avgQ.Add(RunQueue());
+                }
+
+                for (int j = 0; j < this.rs.AverageIterations; j++) {
+                    TimeSpan avgLL = new TimeSpan();
+                    avgLL = avgLL.Add(RunLinkedList());
+                }
+
+                for (int j = 0; j < this.rs.AverageIterations; j++) {
+                    TimeSpan avgT = new TimeSpan();
+                    avgT = avgT.Add(RunTree());
+                }
+
                 // best way to do this is with a delegate.
                 // need to figure out passing with out parameter
                 // in delegate.
-            }
+            
 
-
+            return results;
         }
 
         /// <summary>
@@ -95,6 +124,16 @@ namespace CPU_Ripper.util {
             a += RunTree;
 
             return a;
+        }
+
+        private byte GenerateScore(RipperTestResults ripperTest) {
+
+            // algorithm for generating a score.
+
+            // maybe iterations per second
+
+            // time taken to complete.
+            return 50;
         }
 
     }
