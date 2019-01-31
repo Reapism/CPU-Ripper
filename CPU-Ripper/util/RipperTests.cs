@@ -18,24 +18,16 @@ namespace CPU_Ripper.util {
         /// <summary>
         /// Runs a naive test on successorship.
         /// <para>Counts from 0 to N.</para>
+        /// Outputs a <see cref="TimeSpan"/> 
+        /// representing how long it takes this operation.
         /// </summary>
-        /// <param name="dur">Outputs a <see cref="TimeSpan"/> 
-        /// representing how long it takes this operation.</param>
+        /// 
 
-        private void RunSuccessorship(out TimeSpan dur) {
+        private TimeSpan RunSuccessorship() {
             var sw = Stopwatch.StartNew();
             for (ulong i = 0; i < this.rs.IterationsSuccessorship; i++) { }
             sw.Stop();
-            dur = sw.Elapsed;
-        }
-
-        /// <summary>
-        /// Runs a naive test on successorship.
-        /// <para>Counts from 0 to N.</para>
-        /// </summary>
-
-        private void RunSuccessorship() {
-            for (ulong i = 0; i < this.rs.IterationsSuccessorship; i++) { }
+            return sw.Elapsed;
         }
 
         #endregion
@@ -46,11 +38,12 @@ namespace CPU_Ripper.util {
         /// Runs a naive test on boolean logic.
         /// <para>Internally, generates 2 random integers and 
         /// compares them. Whichever is greater, it adds to an output list.</para>
+        /// Outputs a <see cref="TimeSpan"/> 
+        /// representing how long it takes this operation.
         /// </summary>
-        /// <param name="dur">Outputs a <see cref="TimeSpan"/> 
-        /// representing how long it takes this operation.</param>
 
-        private void RunBoolean(out TimeSpan dur) {
+
+        private TimeSpan RunBoolean() {
             Random rnd = new Random();
 
             var sw = Stopwatch.StartNew();
@@ -64,15 +57,7 @@ namespace CPU_Ripper.util {
             }
 
             sw.Stop();
-            dur = sw.Elapsed;
-        }
-
-        private void RunBoolean() {
-            Random rnd = new Random();
-
-            for (ulong i = 0; i < this.rs.IterationsBoolean; i++) {
-                bool b1 = (rnd.Next() > rnd.Next() ? true : false);
-            }
+            return sw.Elapsed;
         }
 
         #endregion
@@ -80,14 +65,15 @@ namespace CPU_Ripper.util {
         #region LinkedLists functions.
 
         /// <summary>
-        /// Runs a naive test using linked lists.
+        /// Runs a test using linked lists.
         /// <para>Creates two <see cref="LinkedList{T}"/> and
         /// adds, removes, and searches random numbers of type 
-        /// <see cref="int"/>.</para></summary>
-        /// <param name="dur">Outputs a <see cref="TimeSpan"/> 
-        /// representing how long it takes this operation.</param>
+        /// <see cref="int"/>.</para>
+        /// Outputs a <see cref="TimeSpan"/> 
+        /// representing how long it takes this operation.
+        /// </summary>
 
-        private void RunLinkedList(out TimeSpan dur) {
+        private TimeSpan RunLinkedList() {
             const int LARGEST_NUM = 10000;
             Random rnd = new Random();
             LinkedList<int> lst1 = new LinkedList<int>();
@@ -100,7 +86,6 @@ namespace CPU_Ripper.util {
                 choice = rnd.Next(0, 3);
 
                 switch (choice) {
-
                     // add
                     case 0: {
                         int rndNum = rnd.Next(LARGEST_NUM);
@@ -131,57 +116,24 @@ namespace CPU_Ripper.util {
             // linked lists.
 
             sw.Stop();
-            dur = sw.Elapsed;
+            return sw.Elapsed;
 
         }
-
-        private void RunLinkedList() {
-            const int LARGEST_NUM = 10000;
-            Random rnd = new Random();
-            LinkedList<int> lst1 = new LinkedList<int>();
-            LinkedList<int> lst2 = new LinkedList<int>();
-
-            int choice;
-
-            for (ulong i = 0; i < this.rs.IterationsLinkedList; i++) {
-                choice = rnd.Next(0, 3);
-
-                switch (choice) {
-
-                    // add
-                    case 0: {
-                        int rndNum = rnd.Next(LARGEST_NUM);
-                        lst1.AddLast(rndNum);
-                        lst2.AddLast(rndNum);
-
-                        break;
-                    }
-                    // remove
-                    case 1: {
-                        int rndNum = rnd.Next(LARGEST_NUM);
-                        bool b1 = lst1.Remove(rndNum);
-                        bool b2 = lst2.Remove(rndNum);
-
-                        break;
-                    }
-                    // search
-                    case 2: {
-                        int rndNum = rnd.Next(LARGEST_NUM);
-                        bool b1 = lst1.Contains(rndNum);
-                        bool b2 = lst2.Contains(rndNum);
-
-                        break;
-                    }
-                }
-            }
-
-        }
-
+       
         #endregion
 
         #region Queue functions.
 
-        private void RunQueue(out TimeSpan dur) {
+        /// <summary>
+        /// Runs a naive test using Queues.
+        /// <para>Creates two <see cref="Queue{T}"/> and
+        /// adds, removes, and searches random numbers of type 
+        /// <see cref="int"/>.</para>
+        /// Outputs a <see cref="TimeSpan"/> 
+        /// representing how long it takes this operation
+        /// </summary>
+
+        private TimeSpan RunQueue() {
             Random rnd = new Random();
             Queue<int> q1 = new Queue<int>();
             Queue<int> q2 = new Queue<int>();
@@ -194,7 +146,6 @@ namespace CPU_Ripper.util {
                 choice = rnd.Next(0, 3);
 
                 switch (choice) {
-
                     // add
                     case 0: {
                         int rndNum = rnd.Next();
@@ -227,58 +178,23 @@ namespace CPU_Ripper.util {
             // queues.
 
             sw.Stop();
-            dur = sw.Elapsed;
-
-        }
-
-        private void RunQueue() {
-            Random rnd = new Random();
-            Queue<int> q1 = new Queue<int>();
-            Queue<int> q2 = new Queue<int>();
-
-            List<bool> lstResult = new List<bool>();
-            int choice;
-
-            for (ulong i = 0; i < this.rs.IterationsQueue; i++) {
-                choice = rnd.Next(0, 3);
-
-                switch (choice) {
-
-                    // add
-                    case 0: {
-                        int rndNum = rnd.Next();
-                        q1.Enqueue(rndNum);
-                        q2.Enqueue(rndNum);
-                        break;
-                    }
-                    // remove
-                    case 1: {
-                        try { // if queues are empty, can throw exceptions.
-                            int i1 = q1.Dequeue();
-                            int i2 = q2.Dequeue();
-                        } catch (InvalidOperationException) {
-                            break;
-                        }
-
-                        break;
-                    }
-                    // contains
-                    case 2: {
-                        int rndNum = rnd.Next();
-                        bool b1 = q1.Contains(rndNum);
-                        bool b2 = q2.Contains(rndNum);
-
-                        break;
-                    }
-                }
-            }
+            return sw.Elapsed;
         }
 
         #endregion
 
         #region Tree functions.
 
-        private void RunTree(out TimeSpan dur) {
+        /// <summary>
+        /// Runs a naive test using Trees.
+        /// <para>Creates two <see cref="SortedSet{T}"/> and
+        /// adds, removes, and searches random numbers of type 
+        /// <see cref="int"/>.</para>
+        /// Outputs a <see cref="TimeSpan"/> 
+        /// representing how long it takes this operation.
+        /// </summary>
+
+        private TimeSpan RunTree() {
             Random rnd = new Random();
             SortedSet<string> set1 = new SortedSet<string>();
             SortedSet<string> set2 = new SortedSet<string>();
@@ -290,7 +206,6 @@ namespace CPU_Ripper.util {
                 choice = rnd.Next(0, 3);
 
                 switch (choice) {
-
                     // add
                     case 0: {
                         string rndStr = rnd.Next().ToString();
@@ -321,52 +236,10 @@ namespace CPU_Ripper.util {
             // linked lists.
 
             sw.Stop();
-            dur = sw.Elapsed;
-
-        }
-
-        private void RunTree() {
-            Random rnd = new Random();
-            SortedSet<string> set1 = new SortedSet<string>();
-            SortedSet<string> set2 = new SortedSet<string>();
-
-            int choice;
-
-            for (ulong i = 0; i < this.rs.IterationsTree; i++) {
-                choice = rnd.Next(0, 3);
-
-                switch (choice) {
-
-                    // add
-                    case 0: {
-                        string rndStr = rnd.Next().ToString();
-                        set1.Add(rnd.Next().ToString());
-                        set2.Add(rnd.Next().ToString());
-
-                        break;
-                    }
-                    // remove
-                    case 1: {
-                        string rndStr = rnd.Next().ToString();
-                        bool b1 = set1.Remove(rndStr);
-                        bool b2 = set2.Remove(rndStr);
-
-                        break;
-                    }
-                    // search
-                    case 2: {
-                        string rndStr = rnd.Next().ToString();
-                        bool b1 = set1.Contains(rndStr);
-                        bool b2 = set2.Contains(rndStr);
-
-                        break;
-                    }
-                }
-            }
+            return sw.Elapsed;
         }
 
         #endregion
-
     }
 
     #endregion
