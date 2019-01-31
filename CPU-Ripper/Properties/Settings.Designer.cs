@@ -122,9 +122,9 @@ namespace CPU_Ripper.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5")]
-        public string num_tests {
+        public byte num_tests {
             get {
-                return ((string)(this["num_tests"]));
+                return ((byte)(this["num_tests"]));
             }
             set {
                 this["num_tests"] = value;
