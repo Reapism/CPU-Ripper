@@ -109,23 +109,6 @@ namespace CPU_Ripper.util {
             return results;
         }
 
-        /// <summary>
-        /// Gets all the test methods and returns an action that holds
-        /// all them.
-        /// </summary>
-        /// <returns>An action containing all the methods to run.</returns>
-
-        private Action GetTests() {
-            Action a = new Action(RunSuccessorship);
-
-            a += RunBoolean;
-            a += RunQueue;
-            a += RunLinkedList;
-            a += RunTree;
-
-            return a;
-        }
-
         private byte GenerateScore(RipperTestResults ripperTest) {
 
             // algorithm for generating a score.
