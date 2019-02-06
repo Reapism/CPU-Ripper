@@ -58,6 +58,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="exception\RipperUnknownTestException.cs" />
+    <Compile Include="util\BaseComputerSpecs.cs" />
+    <Compile Include="util\IComputerSpecs.cs" />
     <Compile Include="util\RipperTestResults.cs" />
     <Compile Include="window\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
