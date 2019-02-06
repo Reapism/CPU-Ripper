@@ -12,17 +12,12 @@ namespace CPU_Ripper.util {
 
         #region Instance members and properties.
 
-        private byte numberOfTests;
+        //private Dictionary<string, TimeSpan> averagePerTest;
 
         /// <summary>
         /// 
         /// </summary>
-        public List<TimeSpan> AveragePerTest { get; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public List<string> ListOfTests { get; }
+        public Dictionary<string, TimeSpan> AveragePerTest { get; }
 
         /// <summary>
         /// 
@@ -43,7 +38,7 @@ namespace CPU_Ripper.util {
         /// </summary>
 
         public RipperTestResults() {
-            numberOfTests = Properties.Settings.Default.num_tests;
+            AveragePerTest = new Dictionary<string, TimeSpan>();
         }
 
         /// <summary>
@@ -55,7 +50,7 @@ namespace CPU_Ripper.util {
         public TimeSpan GetTotalTime() {
             TimeSpan totalTime = new TimeSpan();
 
-            foreach (TimeSpan t in AveragePerTest) {
+            foreach (TimeSpan t in AveragePerTest.Values) {
                 totalTime = totalTime.Add(t);
             }
 
