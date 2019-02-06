@@ -1,5 +1,6 @@
 ﻿using CPU_Ripper.util;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace CPU_Ripper.window {
@@ -74,7 +75,12 @@ namespace CPU_Ripper.window {
         private void BtnSingle_Click(object sender, RoutedEventArgs e) {
             this.txtStats.Document.Blocks.Clear();
             PrintTestIterations();
-            this.r.SingleThread();
+            RipperTestResults results = this.r.SingleThread();
+
+            foreach (KeyValuePair<string, TimeSpan> vp in results.AveragePerTest) {
+                txtStats.AppendText($"{vp.Key}: {vp.Value}\n");
+            }
+
         }
 
         private void BtnMulti_Click(object sender, RoutedEventArgs e) {
@@ -112,7 +118,7 @@ namespace CPU_Ripper.window {
         #endregion
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e) {
-            new SettingsWindow(rs).Show();
+            new SettingsWindow(this.rs).Show();
         }
     }
 
