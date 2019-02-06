@@ -1,7 +1,6 @@
 ﻿using CPU_Ripper.exception;
 using CPU_Ripper.window;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -10,10 +9,8 @@ namespace CPU_Ripper.util {
 
     /// <summary>
     /// The <seealso cref="Ripper"/> class.
-    /// 
     /// All internal and external functions that performs
     /// the tests.
-    /// 
     /// <para>Author: Reapism / Anthony Jaghab (c), all rights reserved.</para>
     /// </summary>
 
@@ -69,44 +66,65 @@ namespace CPU_Ripper.util {
         public RipperTestResults SingleThread() {
             var results = new RipperTestResults();
 
-            Action allTests = GetTests();
-            MessageBox.Show(allTests.Method.ToString());
-
             // Initalize all the objects.
+            TimeSpan avgSucc = new TimeSpan();
+            TimeSpan avgBool = new TimeSpan();
+            TimeSpan avgQ = new TimeSpan();
+            TimeSpan avgLL = new TimeSpan();
+            TimeSpan avgT = new TimeSpan();
 
-            
+            for (int j = 0; j < this.rs.AverageIterations; j++) {
+                avgSucc = avgSucc.Add(RunSuccessorship());
+            }
 
-                for (int j = 0; j< this.rs.AverageIterations; j++) {
-                    TimeSpan avgSucc = new TimeSpan();
-                    avgSucc = avgSucc.Add(RunSuccessorship());
-                }
+            for (int j = 0; j < this.rs.AverageIterations; j++) {
+                avgBool = avgBool.Add(RunBoolean());
+            }
 
-                for (int j = 0; j < this.rs.AverageIterations; j++) {
-                    TimeSpan avgBool = new TimeSpan();
-                    avgBool = avgBool.Add(RunBoolean());
-                }
+            for (int j = 0; j < this.rs.AverageIterations; j++) {
+                avgQ = avgQ.Add(RunQueue());
+            }
 
-                for (int j = 0; j < this.rs.AverageIterations; j++) {
-                    TimeSpan avgQ = new TimeSpan();
-                    avgQ = avgQ.Add(RunQueue());
-                }
+            for (int j = 0; j < this.rs.AverageIterations; j++) {
+                avgLL = avgLL.Add(RunLinkedList());
+            }
+      
+            for (int j = 0; j < this.rs.AverageIterations; j++) {
+                avgT = avgT.Add(RunTree());
+            }
 
-                for (int j = 0; j < this.rs.AverageIterations; j++) {
-                    TimeSpan avgLL = new TimeSpan();
-                    avgLL = avgLL.Add(RunLinkedList());
-                }
+            try {
+                avgSucc = AverageTimespan(ref avgSucc, rs.AverageIterations);
+                avgBool = AverageTimespan(ref avgBool, rs.AverageIterations);
+                avgQ = AverageTimespan(ref avgQ, rs.AverageIterations);
+                avgLL = AverageTimespan(ref avgLL, rs.AverageIterations);
+                avgT = AverageTimespan(ref avgT, rs.AverageIterations);
+            } catch (DivideByZeroException e) {
+                MessageBox.Show("Thrown when averaging with a " +
+                    "number less than or equal to 0.", "DivideByZeroException");
+            }
 
-                for (int j = 0; j < this.rs.AverageIterations; j++) {
-                    TimeSpan avgT = new TimeSpan();
-                    avgT = avgT.Add(RunTree());
-                }
-
-                // best way to do this is with a delegate.
-                // need to figure out passing with out parameter
-                // in delegate.
-            
-
+            results.AveragePerTest.Add("Successorship", avgSucc);
+            results.AveragePerTest.Add("Boolean", avgBool);
+            results.AveragePerTest.Add("Queue", avgQ);
+            results.AveragePerTest.Add("Linked List", avgLL);
+            results.AveragePerTest.Add("Tree", avgT);
+            results.Score = GenerateScore(results);
             return results;
+        }
+
+        /// <summary>
+        /// Averages a particular <see cref="TimeSpan"/> with a number and
+        /// returns a new <see cref="TimeSpan"/> with the average.
+        /// </summary>
+        /// <param name="averageMe">A <see cref="TimeSpan"/> object to average.</param>
+        /// <param name="divideBy">The number to divide the <see cref="TimeSpan"/> by.</param>
+        /// <returns></returns>
+        /// <exception cref="DivideByZeroException">Thrown if a number is less than or = to 0.</exception>
+
+        private TimeSpan AverageTimespan(ref TimeSpan averageMe, int divideBy) {
+            return (divideBy <= 0) ? throw new DivideByZeroException() :
+                new TimeSpan(averageMe.Ticks / divideBy);
         }
 
         private byte GenerateScore(RipperTestResults ripperTest) {
