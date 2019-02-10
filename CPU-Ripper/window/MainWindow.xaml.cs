@@ -76,16 +76,20 @@ namespace CPU_Ripper.window {
             this.txtStats.Document.Blocks.Clear();
             PrintTestIterations();
             RipperTestResults results = this.r.SingleThread();
+            txtStats.AppendText("\n\nAverage per test:\n");
 
             foreach (KeyValuePair<string, TimeSpan> vp in results.AveragePerTest) {
-                txtStats.AppendText($"{vp.Key}: {vp.Value}\n");
+                txtStats.AppendText($"{vp.Key} {vp.Value} + Ticks: {vp.Value.Ticks.ToString("n0")}\n");
             }
+
+            txtStats.AppendText("\n\n" + results.GenerateDescription());
 
         }
 
         private void BtnMulti_Click(object sender, RoutedEventArgs e) {
             this.txtStats.Document.Blocks.Clear();
             PrintTestIterations();
+
             this.r.MultiThread();
         }
 
@@ -112,7 +116,7 @@ namespace CPU_Ripper.window {
             w.txtStats.AppendText($"\nBoolean: {this.rs.IterationsBoolean.ToString("n0")}");
             w.txtStats.AppendText($"\nQueue: {this.rs.IterationsQueue.ToString("n0")}");
             w.txtStats.AppendText($"\nLinked List: {this.rs.IterationsLinkedList.ToString("n0")}");
-            w.txtStats.AppendText($"\nTree: {this.rs.IterationsTree.ToString("n0")}");
+            w.txtStats.AppendText($"\nTree: {this.rs.IterationsTree.ToString("n0")}\n\n\n");
         }
 
         #endregion
