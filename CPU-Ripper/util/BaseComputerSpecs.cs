@@ -60,5 +60,10 @@ namespace CPU_Ripper.util {
         /// Default thread count.
         /// </summary>
         public int ThreadCount => throw new NotImplementedException();
+
+        /// <summary>
+        /// The score for this base computer.
+        /// </summary>
+        public byte Score => 50;
     }
 }
