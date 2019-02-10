@@ -74,23 +74,38 @@ namespace CPU_Ripper.util {
             TimeSpan avgT = new TimeSpan();
 
             for (int j = 0; j < this.rs.AverageIterations; j++) {
-                avgSucc = avgSucc.Add(RunSuccessorship());
+                TimeSpan t = RunSuccessorship();
+                MainWindow w = (MainWindow)Application.Current.MainWindow;
+                Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText($"\nSuccessor {j}: {t}"));
+                avgSucc = avgSucc.Add(t);
             }
 
             for (int j = 0; j < this.rs.AverageIterations; j++) {
-                avgBool = avgBool.Add(RunBoolean());
+                TimeSpan t = RunBoolean();
+                MainWindow w = (MainWindow)Application.Current.MainWindow;
+                Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText($"\nBool {j}: {t}"));
+                avgBool = avgBool.Add(t);
             }
 
             for (int j = 0; j < this.rs.AverageIterations; j++) {
-                avgQ = avgQ.Add(RunQueue());
+                TimeSpan t = RunQueue();
+                MainWindow w = (MainWindow)Application.Current.MainWindow;
+                Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText($"\nQueue {j}: {t}"));
+                avgQ = avgQ.Add(t);
             }
 
             for (int j = 0; j < this.rs.AverageIterations; j++) {
-                avgLL = avgLL.Add(RunLinkedList());
+                TimeSpan t = RunLinkedList();
+                MainWindow w = (MainWindow)Application.Current.MainWindow;
+                Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText($"\nLL {j}: {t}"));
+                avgLL = avgLL.Add(t);
             }
       
             for (int j = 0; j < this.rs.AverageIterations; j++) {
-                avgT = avgT.Add(RunTree());
+                TimeSpan t = RunTree();
+                MainWindow w = (MainWindow)Application.Current.MainWindow;
+                Dispatcher.CurrentDispatcher.Invoke(() => w.txtStats.AppendText($"\nTree {j}: {t}"));
+                avgT = avgT.Add(t);
             }
 
             try {
@@ -109,7 +124,7 @@ namespace CPU_Ripper.util {
             results.AveragePerTest.Add("Queue", avgQ);
             results.AveragePerTest.Add("Linked List", avgLL);
             results.AveragePerTest.Add("Tree", avgT);
-            results.Score = GenerateScore(results);
+            
             return results;
         }
 
@@ -125,16 +140,6 @@ namespace CPU_Ripper.util {
         private TimeSpan AverageTimespan(ref TimeSpan averageMe, int divideBy) {
             return (divideBy <= 0) ? throw new DivideByZeroException() :
                 new TimeSpan(averageMe.Ticks / divideBy);
-        }
-
-        private byte GenerateScore(RipperTestResults ripperTest) {
-
-            // algorithm for generating a score.
-
-            // maybe iterations per second
-
-            // time taken to complete.
-            return 50;
         }
 
     }
