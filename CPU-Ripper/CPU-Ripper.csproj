@@ -76,9 +76,8 @@
     <Compile Include="util\Ripper.cs" />
     <Compile Include="util\RipperAnimation.cs" />
     <Compile Include="util\RipperSettings.cs" />
-    <Compile Include="util\RipperTests.cs" />
+    <Compile Include="util\RipperTestsFunctions.cs" />
     <Compile Include="util\Specs.cs" />
-    <Compile Include="util\UnitTestRipper.cs" />
     <Compile Include="window\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
