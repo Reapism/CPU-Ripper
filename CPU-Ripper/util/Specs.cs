@@ -67,19 +67,16 @@ namespace CPU_Ripper.util {
         /// <returns></returns>
 
         public override string ToString() =>
-          $"Machine Name: {Environment.MachineName}\n" +
-            $"User: {Environment.UserName}\n" +
-            $"Network: {}\n" +
-            $"System path: {Environment.SystemDirectory}\n" +
-            $"CLR version: {Environment.Version}\n" +
-            $"Ticks: {Environment.TickCount.ToString("n0")}\n" +
-            $"Platform: {Environment.OSVersion.Platform.ToString()}\n" +
-            $"Service Pack: {Environment.OSVersion.ServicePack}\n" +
-            $"OS Version: {Environment.OSVersion.Version.ToString()}\n" +
-            $"Threads: {Environment.ProcessorCount}\n";
-
-
-
+          $"Machine name: {MachineName}\n" +
+             $"Username: {UserName}\n" +
+             $"Network name: {NetworkName}\n" +
+             $"System Directory: {SystemDirectory}\n" +
+             $"CLR version: {CLRVersion.ToString()}\n" +
+             $"Ticks machine is on: {TickCount.ToString("n0")}\n" +
+             $"Platform: {Platform}\n" +
+             $"Service Pack: {ServicePack}\n" +
+             $"OS version: {OSVersion.ToString()}\n" +
+             $"Logical processor(s): {ThreadCount.ToString("n0")}.\n";
 
     }
 }
