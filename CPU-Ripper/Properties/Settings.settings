@@ -29,5 +29,11 @@
     <Setting Name="num_tests" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">5</Value>
     </Setting>
+    <Setting Name="opacity" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="glue" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
