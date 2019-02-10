@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CPU_Ripper.window"
         mc:Ignorable="d"
-        Title="Settings" Height="500" Width="800" MinHeight="500" MinWidth="800">
+        Title="Settings" Height="500" Width="800" MinHeight="500" MinWidth="800" Foreground="Black">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -16,18 +16,19 @@
                 <StackPanel x:Name="stkTests" Margin="0" VerticalAlignment="Top" Height="150">
                     <TextBox x:Name="txtSuccIter" Height="23" TextWrapping="Wrap" Text="  Successorship:" Margin="2,5,2,0" SelectionOpacity="0.1" ToolTip="Number of iterations for successorship." GotFocus="TxtSuccIter_GotFocus" LostFocus="TxtSuccIter_LostFocus" KeyDown="TxtSuccIter_KeyDown"/>
                     <TextBox x:Name="txtBoolIter" Height="23" TextWrapping="Wrap" Text="  Boolean:" Margin="2,5,2,0" ToolTip="Number of iterations for boolean logic." SelectionOpacity="0.2" GotFocus="TxtBoolIter_GotFocus" LostFocus="TxtBoolIter_LostFocus" KeyDown="TxtBoolIter_KeyDown"/>
-                    <TextBox x:Name="txtQueueIter" Height="23" TextWrapping="Wrap" Text="  Queue:" ToolTip="Number of iterations for adding, removing, and searching the Queue data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtQueueIter_GotFocus" LostFocus="TxtQueueIter_LostFocus" KeyDown="TxtQueueIter_KeyDown"/>
-                    <TextBox x:Name="txtLinkedIter" Height="23" TextWrapping="Wrap" Text="  Linked list:" ToolTip="Number of iterations for adding, removing, and searching the LinkedList data structure." Margin="2,5,2,0" SelectionOpacity="0.2" GotFocus="TxtLinkedIter_GotFocus" LostFocus="TxtLinkedIter_LostFocus" KeyDown="TxtLinkedIter_KeyDown"/>
-                    <TextBox x:Name="txtTreeIter" Height="23" TextWrapping="Wrap" Text="  Tree:" ToolTip="Number of iterations for adding, removing, and searching the Tree data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtTreeIter_GotFocus" LostFocus="TxtTreeIter_LostFocus" KeyDown="TxtTreeIter_KeyDown"/>
+                    <TextBox x:Name="txtQueueIter" Height="23" TextWrapping="Wrap" Text="  Queue:" ToolTip="Number of iterations for adding, removing, and searching the queue data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtQueueIter_GotFocus" LostFocus="TxtQueueIter_LostFocus" KeyDown="TxtQueueIter_KeyDown"/>
+                    <TextBox x:Name="txtLinkedIter" Height="23" TextWrapping="Wrap" Text="  Linked list:" ToolTip="Number of iterations for adding, removing, and searching the linked list data structure." Margin="2,5,2,0" SelectionOpacity="0.2" GotFocus="TxtLinkedIter_GotFocus" LostFocus="TxtLinkedIter_LostFocus" KeyDown="TxtLinkedIter_KeyDown"/>
+                    <TextBox x:Name="txtTreeIter" Height="23" TextWrapping="Wrap" Text="  Tree:" ToolTip="Number of iterations for adding, removing, and searching the tree data structure." SelectionOpacity="0.2" Margin="2,5,2,0" GotFocus="TxtTreeIter_GotFocus" LostFocus="TxtTreeIter_LostFocus" KeyDown="TxtTreeIter_KeyDown"/>
                 </StackPanel>
             </GroupBox>
         </Grid>
         <Grid x:Name="grdRight" Grid.Column="1" Margin="0">
             <GroupBox x:Name="grpApp" Header="Application:" Margin="5,0,5,5">
-                <StackPanel x:Name="stkApp" Margin="0" VerticalAlignment="Top" Height="150">
-                    <CheckBox x:Name="chkFluidLoad" Content="Fluid load" Margin="0,5,0,0" ToolTip="Fluid load preloads all application windows for nice visual effects." Checked="ChkFluidLoad_Checked"/>
-                    <CheckBox x:Name="chkAutoUpdates" Content="Auto updates" Margin="0,5,0,0" ToolTip="Automatically checks for updates on application load." Checked="ChkAutoUpdates_Checked"/>
-                    <CheckBox x:Name="chkGlue" Content="Glue" Margin="0,5,0,0" ToolTip="Glues the settings window to be side-by-side with the main window." Checked="ChkGlue_Checked"/>
+                <StackPanel x:Name="stkApp" Margin="0" VerticalAlignment="Top" Height="298">
+                    <CheckBox x:Name="chkFluidLoad" Content="Fluid load" Margin="0,5,0,0" ToolTip="Fluid load preloads all application windows for nice visual effects." Checked="ChkFluidLoad_Checked" Unchecked="ChkFluidLoad_Unchecked"/>
+                    <CheckBox x:Name="chkAutoUpdates" Content="Auto updates" Margin="0,5,0,0" ToolTip="Automatically checks for updates on application load." Checked="ChkAutoUpdates_Checked" Unchecked="ChkAutoUpdates_Unchecked"/>
+                    <CheckBox x:Name="chkGlue" Content="Glue" Margin="0,5,0,0" ToolTip="Glues the settings window to be side-by-side with the main window." Checked="ChkGlue_Checked" Unchecked="ChkGlue_Unchecked"/>
+                    <Slider x:Name="sliderOpacity" ToolTip="Change the opacity of the forms." Maximum="1" SmallChange="0" LargeChange="0.05" ValueChanged="SliderOpacity_ValueChanged" Margin="0,10,0,0" Minimum="0.25"/>
                 </StackPanel>
             </GroupBox>
         </Grid>

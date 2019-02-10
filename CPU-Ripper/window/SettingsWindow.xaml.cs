@@ -2,6 +2,7 @@
 using CPU_Ripper.util;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CPU_Ripper.window {
     /// <summary>
@@ -14,7 +15,7 @@ namespace CPU_Ripper.window {
         private RipperSettings rs;
 
         /// <summary>
-        /// Defines which test.
+        /// Represents each test function as an enumerated data-type.
         /// </summary>
 
         private enum Test {
@@ -45,9 +46,38 @@ namespace CPU_Ripper.window {
             Tree
         }
 
+        /// <summary>
+        /// Represents each application setting in <see cref="SettingsWindow"/>.
+        /// </summary>
+        private enum AppSettings {
+
+            /// <summary>
+            /// Automatically checks for updates
+            /// on application load.
+            /// </summary>
+            AutoUpdates,
+
+            /// <summary>
+            /// Fluid load preloads all application 
+            /// windows for nice visual effects.
+            /// </summary>
+            FluidLoad,
+
+            /// <summary>
+            /// Glues the settings window to be 
+            /// side-by-side with the main window.
+            /// </summary>
+            Glue,
+
+            /// <summary>
+            /// Opacity for the forms.
+            /// </summary>
+            Opacity,
+        }
+
         #endregion
 
-        #region Contructor and methods.
+        #region Constructor and methods.
 
         /// <summary>
         /// Default constructor.
@@ -71,6 +101,12 @@ namespace CPU_Ripper.window {
             UpdateTextIter(Test.Queue);
             UpdateTextIter(Test.LinkedList);
             UpdateTextIter(Test.Tree);
+
+            this.chkAutoUpdates.IsEnabled = Properties.Settings.Default.auto_updates;
+            this.chkFluidLoad.IsEnabled = Properties.Settings.Default.fluid_loading;
+            this.chkGlue.IsEnabled = Properties.Settings.Default.glue;
+
+            this.sliderOpacity.Value = Properties.Settings.Default.opacity;
         }
 
         /// <summary>
@@ -162,7 +198,7 @@ namespace CPU_Ripper.window {
         /// <summary>
         /// Clears all passed <see cref="TextBox"/> controls.
         /// </summary>
-        /// <param name="txtBoxes">One or many <see cref="TextBox"/></param>
+        /// <param name="txtBoxes">One or many <see cref="TextBox"/>(s).</param>
 
         private void ClearTextIter(params TextBox[] txtBoxes) {
             foreach (TextBox t in txtBoxes) { t.Clear(); }
@@ -176,28 +212,28 @@ namespace CPU_Ripper.window {
         /// to a particular <see cref="Ripper"/> test.</param>
         /// <exception cref="RipperUnknownTestException">Thrown if an unknown 
         /// <see cref="Test"/> type is passed.</exception>
-        
+
         private TextBox GetTextBox(Test getMe) {
 
             switch (getMe) {
                 case Test.Successorship: {
-                    return txtSuccIter;
+                    return this.txtSuccIter;
                 }
 
                 case Test.Boolean: {
-                    return txtBoolIter;
+                    return this.txtBoolIter;
                 }
 
                 case Test.Queue: {
-                    return txtQueueIter;
+                    return this.txtQueueIter;
                 }
 
                 case Test.LinkedList: {
-                    return txtSuccIter;
+                    return this.txtSuccIter;
                 }
 
                 case Test.Tree: {
-                    return txtTreeIter;
+                    return this.txtTreeIter;
                 }
 
                 default: {
@@ -217,27 +253,27 @@ namespace CPU_Ripper.window {
 
             switch (updateMe) {
                 case Test.Successorship: {
-                    Properties.Settings.Default.iter_successor = rs.IterationsSuccessorship;
+                    Properties.Settings.Default.iter_successor = this.rs.IterationsSuccessorship;
                     break;
                 }
 
                 case Test.Boolean: {
-                    Properties.Settings.Default.iter_bool = rs.IterationsBoolean;
+                    Properties.Settings.Default.iter_bool = this.rs.IterationsBoolean;
                     break;
                 }
 
                 case Test.Queue: {
-                    Properties.Settings.Default.iter_queue = rs.IterationsQueue;
+                    Properties.Settings.Default.iter_queue = this.rs.IterationsQueue;
                     break;
                 }
 
                 case Test.LinkedList: {
-                    Properties.Settings.Default.iter_linkedlist = rs.IterationsLinkedList;
+                    Properties.Settings.Default.iter_linkedlist = this.rs.IterationsLinkedList;
                     break;
                 }
 
                 case Test.Tree: {
-                    Properties.Settings.Default.iter_tree = rs.IterationsTree;
+                    Properties.Settings.Default.iter_tree = this.rs.IterationsTree;
                     break;
                 }
             }
@@ -245,24 +281,97 @@ namespace CPU_Ripper.window {
             Properties.Settings.Default.Save();
         }
 
+        /// <summary>
+        /// Updates a particular <see cref="AppSettings"/> setting in the
+        /// application settings and saves the change.
+        /// </summary>
+        /// <param name="updateMe">A <see cref="AppSettings"/> which refers
+        /// to a particular <see cref="Ripper"/> test.</param>
+
+        private void UpdateSettings(AppSettings updateMe) {
+
+            switch (updateMe) {
+                case AppSettings.AutoUpdates: {
+                    Properties.Settings.Default.auto_updates = this.rs.AutoCheckForUpdates;
+                    break;
+                }
+
+                case AppSettings.FluidLoad: {
+                    Properties.Settings.Default.fluid_loading = this.rs.FluidLoading;
+                    break;
+                }
+
+                case AppSettings.Glue: {
+                    Properties.Settings.Default.glue = this.rs.Glue;
+                    break;
+                }
+
+                case AppSettings.Opacity: {
+                    Properties.Settings.Default.opacity = this.rs.Opacity;
+                    break;
+                }
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void FocusTextBox(TextBox t) {
+            t.BorderBrush = new SolidColorBrush(Colors.DarkOliveGreen);
+
+        }
+
+        private void LostFocusTextBox(TextBox t) {
+            t.BorderBrush = Brushes.Transparent;
+        }
+
         #endregion
 
         #region Events and Event methods.
 
         private void ChkFluidLoad_Checked(object sender, RoutedEventArgs e) {
-
+            // Uses coalescing operator because isChecked is nullable.
+            if (chkFluidLoad.IsChecked ?? true) {
+                return; // if we are null, get out of method.
+            }
+            this.rs.FluidLoading = chkFluidLoad.IsChecked.Value;
+            UpdateSettings(AppSettings.FluidLoad);
         }
 
         private void ChkAutoUpdates_Checked(object sender, RoutedEventArgs e) {
-
+            this.rs.AutoCheckForUpdates = chkAutoUpdates.IsChecked.Value;
+            UpdateSettings(AppSettings.AutoUpdates);
         }
 
         private void ChkGlue_Checked(object sender, RoutedEventArgs e) {
+            this.rs.Glue = chkGlue.IsChecked.Value;
+            UpdateSettings(AppSettings.Glue);
+        }
 
+        private void ChkFluidLoad_Unchecked(object sender, RoutedEventArgs e) {
+            this.rs.FluidLoading = chkFluidLoad.IsChecked.Value;
+            UpdateSettings(AppSettings.FluidLoad);
+        }
+
+        private void ChkAutoUpdates_Unchecked(object sender, RoutedEventArgs e) {
+            this.rs.AutoCheckForUpdates = chkAutoUpdates.IsChecked.Value;
+            UpdateSettings(AppSettings.AutoUpdates);
+        }
+
+        private void ChkGlue_Unchecked(object sender, RoutedEventArgs e) {
+            this.rs.Glue = chkGlue.IsChecked.Value;
+            UpdateSettings(AppSettings.Glue);
+        }
+
+        private void SliderOpacity_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e) {
+
+            // logic
+
+            UpdateSettings(AppSettings.Opacity); // update the settings.
         }
 
         private void TxtSuccIter_GotFocus(object sender, RoutedEventArgs e) {
             ClearTextIter(Test.Successorship);
+            FocusTextBox((TextBox)sender);
         }
 
         private void TxtSuccIter_LostFocus(object sender, RoutedEventArgs e) {
@@ -272,7 +381,7 @@ namespace CPU_Ripper.window {
         private void TxtSuccIter_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Enter) {
                 if (ulong.TryParse(this.txtSuccIter.Text, out ulong i)) {
-                    rs.IterationsSuccessorship = i;
+                    this.rs.IterationsSuccessorship = i;
                     this.txtBoolIter.Focus();
                     UpdateSettings(Test.Successorship);
                 }
@@ -290,7 +399,7 @@ namespace CPU_Ripper.window {
         private void TxtBoolIter_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Enter) {
                 if (ulong.TryParse(this.txtBoolIter.Text, out ulong i)) {
-                    rs.IterationsBoolean = i;
+                    this.rs.IterationsBoolean = i;
                     this.txtQueueIter.Focus();
                     UpdateSettings(Test.Boolean);
                 }
@@ -308,7 +417,7 @@ namespace CPU_Ripper.window {
         private void TxtQueueIter_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Enter) {
                 if (ulong.TryParse(this.txtQueueIter.Text, out ulong i)) {
-                    rs.IterationsQueue = i;
+                    this.rs.IterationsQueue = i;
                     this.txtLinkedIter.Focus();
                     UpdateSettings(Test.Queue);
                 }
@@ -326,7 +435,7 @@ namespace CPU_Ripper.window {
         private void TxtLinkedIter_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Enter) {
                 if (ulong.TryParse(this.txtLinkedIter.Text, out ulong i)) {
-                    rs.IterationsLinkedList = i;
+                    this.rs.IterationsLinkedList = i;
                     this.txtTreeIter.Focus();
                     UpdateSettings(Test.LinkedList);
                 }
@@ -344,13 +453,13 @@ namespace CPU_Ripper.window {
         private void TxtTreeIter_KeyDown(object sender, System.Windows.Input.KeyEventArgs e) {
             if (e.Key == System.Windows.Input.Key.Enter) {
                 if (ulong.TryParse(this.txtTreeIter.Text, out ulong i)) {
-                    rs.IterationsTree = i;
+                    this.rs.IterationsTree = i;
                     this.grpApp.Focus();
                     UpdateSettings(Test.Tree);
                 }
             }
         }
-            
+
         #endregion
     }
 }
