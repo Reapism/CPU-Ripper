@@ -114,8 +114,14 @@ namespace CPU_Ripper.util {
         /// <summary>
         /// Glues the settings window to the main window.
         /// </summary>
+        [DataMember(Name = "glue")]
         public bool Glue { get; set; }
 
+        /// <summary>
+        /// The opacity of the windows.
+        /// </summary>
+        [DataMember(Name = "opacity")]
+        public double Opacity { get; set; }
         
         /// <summary> Serializes a <seealso cref="RipperSettings"/> class into a JSON.
         /// <para>Internally catches possible exceptions, and if found, returns false.</para>
