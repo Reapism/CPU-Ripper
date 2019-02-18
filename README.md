@@ -11,3 +11,13 @@ generates a score from 0 to 100.
 **50** being the average case.
 
 **100** being the absolute best case.
+
+# Whats going on with the Ripper?
+It turns out we will be running with a similar idea for
+senior project but more generalized using more techniques
+including a backend database and different component testing,
+such as disks (read & write), GPU, RAM.
+
+If your interested in similar programming techniques,
+follow the other project for the time being here.
+https://github.com/Reapism/PC-Ripper-Benchmark
